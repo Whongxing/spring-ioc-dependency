@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="userTest" class="domain.UserTest">
+        <property name="id" value="1"/>
+    </bean>
+
+    <bean id="superUser" class="domain.SuperUser" parent="userTest" primary="true">
+        <property name="age" value="23"/>
+    </bean>
+
+    <!--为了延时查找,需要用到objectFactory, 通过targetBeanName属性关联需要延时加载的类-->
+    <bean id="objectFactory" class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean">
+        <property name="targetBeanName"  value="userTest"/>
+    </bean>
+</beans>
